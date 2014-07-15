@@ -11,8 +11,7 @@ GRID_CONFIG.update(getattr(settings, 'DJANGOCMS_GRID_CONFIG', {}))
 DJANGOCMS_GRID_CHOICES = [
     ('%s' % i, 'grid-%s' % i) for i in range(1, GRID_CONFIG['COLUMNS']+1)
 ]
-GRID_CHOICES = getattr(settings, 'DJANGOCMS_GRID_CONFIG', DJANGOCMS_GRID_CHOICES)
-print GRID_CHOICES
+GRID_CHOICES = getattr(settings, 'DJANGOCMS_GRID_CHOICES', DJANGOCMS_GRID_CHOICES)
 
 
 class Grid(CMSPlugin):
