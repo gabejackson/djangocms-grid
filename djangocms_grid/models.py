@@ -8,13 +8,14 @@ from cms.models import CMSPlugin
 GRID_CONFIG = {'COLUMNS': 24, 'TOTAL_WIDTH': 960, 'GUTTER': 20}
 GRID_CONFIG.update(getattr(settings, 'DJANGOCMS_GRID_CONFIG', {}))
 
-DJANGOCMS_GRID_CHOICES = [
+GRID_CHOICES = [
     ('%s' % i, 'grid-%s' % i) for i in range(1, GRID_CONFIG['COLUMNS']+1)
 ]
+GRID_CHOICES = getattr(settings, 'DJANGOCMS_GRID_CONFIG', GRID_CHOICES)
 
 
 class Grid(CMSPlugin):
-    inner = models.BooleanField(_('inner'), default=True, help_text=_('Defines whether the plugin is already inside a grid container or another Multi-column plugin.'))
+    inner = models.BooleanField(_('inner'), default=False, help_text=_('Defines whether the plugin is already inside a grid container or another Multi-column plugin.'))
     custom_classes = models.CharField(_('custom classes'), max_length=200, blank=True)
     translatable_content_excluded_fields = ['custom_classes']
 
@@ -23,7 +24,7 @@ class Grid(CMSPlugin):
 
 
 class GridColumn(CMSPlugin):
-    size = models.CharField(_('size'), choices=DJANGOCMS_GRID_CHOICES, default='1', max_length=50)
+    size = models.CharField(_('size'), choices=GRID_CHOICES, default='1', max_length=50)
     custom_classes = models.CharField(_('custom classes'), max_length=200, blank=True)
     translatable_content_excluded_fields = ['custom_classes']
 
